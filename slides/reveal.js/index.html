@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>GIT Class 1</title>
+        <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+        <meta name="author" content="Hakim El Hattab">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+        <link rel="stylesheet" href="reveal/css/reveal.css">
+        <link rel="stylesheet" href="reveal/css/theme/black.css" id="theme">
+        <link rel="stylesheet" href="css/style.css"><!-- Code syntax highlighting -->
+        <link rel="stylesheet" href="reveal/lib/css/zenburn.css">
+        <!-- Printing and PDF exports -->
+        <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal/css/print/pdf.css' : 'reveal/css/print/paper.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+        <!--[if lt IE 9]><script src="lib/js/html5shiv.js"></script><![endif]-->
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+
+
+                <!-- ... 開始寫code ... -->
+                <section><h1>GIT</h1></section>
+
+                <section>
+                  <h2>為什麼需要版本控制?</h2>
+                  <h3>回想以前你怎麼團隊合作交一份純文字的報告?</h3>
+                  <ul>
+                    <li>分頭進行</li>
+                    <li>於是寫了好多份檔案</li>
+                    <li>手動把大家的修改合併起來</li>
+                  </ul>
+
+                  <h4><br>(嫌麻煩的話可能是開一個 Google Doc 或 Dropbox，但並沒辦法完全解決問題)</h4>
+                </section>
+
+                <section>
+                  <h2>不方便</h2>
+                  <ul>
+                    <li>沒辦法很快知道哪些檔案被改過了</li>
+                    <li>手動合併可能會出錯</li>
+                    <li>合併的時候蓋掉別人的版本怎麼辦</li>
+                    <li>改壞了怎麼復原</li>
+                    <li>Dead Line到了QQ</li>
+                      <ul>
+                        <li>電腦裡堆著一大堆胡亂命名的檔案</li>
+                        <li>到底要交 final 幾之幾之幾？</li>
+                        <li>崩潰！</li>
+                      </ul>
+                  </ul>
+                </section>
+
+                <section>
+                  <h2>「版本控制」可以解決以上麻煩</h2>
+                  <h4>沒錯! 就是Git!!</h4>
+                </section>
+
+                <section>
+                  <h2>精通 Git 並不輕鬆</h2>
+                  <h3>但熟練幾個指令就足以完成日常版控工作</h3>
+                </section>
+
+                <section>
+                  <h2>版本控制的階段</h2>
+                  <ul>
+                    <li>working directory (工作目錄): 存在檔案系統裡的檔案</li>
+                    <li>staging area: 檔案某個版本的快照</li>
+                    <li>local repo: 被紀錄下來，成為歷史的一部份</li>
+                    <li>remote repo: 同步到遠端</li>
+                  </ul>
+                </section>
+
+                <section>
+                    <img src="https://denny.one/SITCON-workshop-2014-ncku-git/img/local-remote.png">
+                </section>
+
+                <section>
+                  <h2 style="">Git 的基本操作</h2>
+                  <img src="http://www.amygori.com/gdi-rdu-git-github/images/basic-remote-workflow.png">
+                </section>
+
+                <section>
+                  <h2>安裝 Git</h2>
+                  <a href="https://git-scm.com/downloads">點此安裝</a>
+                </section>
+
+                <section>
+                  <h2>環境設定</h2>
+                  <h3>設定身份 | 僅用來註記個人身份
+                    <br>不具登入/身份驗證功能</h3>
+                  <code class="hljs hljs javascript" style="text-align: left; font-family: monospace !important;">
+                    # 暱稱<br>
+                    git config --global user.name "Your Name"<br><br>
+                    # Email (建議跟註冊 GitHub 帳號用的相同)<br>
+                    git config --global user.email "you@example.com"
+                  </code>
+                </section>
+
+                <section>
+                  <code class="hljs hljs javascript" style="text-align: left; font-family: monospace !important;">
+                    # 設定顏色<br>
+                    git config --global color.ui true<br><br>
+
+                    # 設定慣用的編輯器；Windows 預設是"記事本"<br>
+                    git config --global core.editor vim<br>
+                    # ...或者你比較喜歡 nano<br>
+                    git config --global core.editor nano<br><br>
+
+                    # 別名 "git lg": 美化版的 log<br>
+                    git config --global alias.lg "log --color --graph --all \
+                    --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset \
+                    %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --"
+                  </code>
+                </section>
+
+                <section>
+                  <h1>Git 常用指令</h1>
+                </section>
+
+                <section>
+                  <h2 class="codered">git init</h2>
+                  <h3>initialize: 讓一個目錄變成 git repo<br>會在目錄下產生一個 .git 紀錄版本資料</h3>
+                </section>
+
+                <section>
+                  <h2 class="codered">git status</h2>
+                  <h3>看看當前目錄的狀況</h3>
+                  <ul>
+                    <li>修改過的檔案 (正準備被 add 或 rm)</li>
+                    <li>在 staging area (正準備 commit)</li>
+                    <li>未被追蹤的檔案 (正準備被納入版本控制)</li>
+                  </ul>
+                </section>
+
+                <section>
+                    <h2 class="codered">git log</h2>
+                    <h3>查看log紀錄</h3>
+                </section>
+
+
+                <section>
+                  <h2 class="codered">git clone [網址]</h2>
+                  <h3>把github的資料抓下來</h3>
+                </section>
+
+                <section>
+                  <h3>上傳檔案到Github</h3>
+                  <h3>1)把檔案加入預備上傳區:</h3>
+                  <h3 class="codered">git add [指令]</h3>
+                  <h4 class="codered">git add -A<br> //加入資料夾內所有更動的內容(新增更改刪除)</h4>
+                  <h4 class="codered">git add .<br> //僅加入新增或更改的內容(不刪除你刪除的檔案)</h4>
+                  <h3>2)描述本次版本更新的內容:</h3>
+                  <h3 class="codered">git commit -m "(本次版本更新內容)"</h3>
+                  <h3>3)確認上傳:</h3>
+                  <h3 class="codered">git push origin master</h3>
+                </section>
+
+                <section>
+                  <h2 class="codered">git reset HEAD [files...]</h2>
+                  <h3>把檔案從預備上傳區退回來</h3>
+                </section>
+
+                <section>
+                  <h2 class="codered">git commit</h2>
+                  <h3>把 staging area 的東西編進版本紀錄<br>
+                    接著會跳出編輯器，要你寫 commit message<br>
+
+                    通常是簡介這次做了哪些事，以及為什麼做<br>
+
+                    也可以直接指定，方便省事：<br><br>
+                    <code class="hljs hljs javascript" style="text-align: left; font-family: monospace !important;text-transform: none !important;">
+                    git commit -m < commit message ></code>
+                  </h3>
+                  <h4>p.s. Windows 預設的編輯器是記事本<br>
+                      Non-Windows 可能是 vim 或 nano<br>
+
+                      不允許空白喔 (•ㅂ•)/<br>
+                      但也不要偷懶亂寫，你的伙伴會崩潰</h4>
+                </section>
+
+                <section>
+                  <h1>下回待續~</h1>
+                </section>
+                <!--結束了-->
+
+            </div>
+        </div>
+        <script src="js/jquery.js"></script>
+        <script src="reveal/lib/js/head.min.js"></script>
+        <script src="reveal/js/reveal.js"></script>
+        <script src="js/sketch.min.js"></script>
+        <script>
+            // Full list of configuration options available at:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+              controls: true,
+              progress: true,
+              history: true,
+              center: true,
+              //-showNotes: true,
+
+              transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+              // Optional reveal.js plugins
+              dependencies: [
+                { src: 'reveal/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                { src: 'reveal/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'reveal/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'reveal/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                { src: 'reveal/plugin/zoom-js/zoom.js', async: true },
+                { src: 'reveal/plugin/notes/notes.js', async: true },
+                { src: 'reveal/plugin/math/math.js', async: true, callback: function() {
+                  setTimeout( function() {
+                    MathJax.Hub.Config({
+                      SVG: {
+                        scale: 90
+                        },
+                      "HTML-CSS": {
+                        scale: 90,
+                        }
+                      });
+                    }, 2000);
+                  },
+                  config: 'TeX-AMS_HTML-full'
+                },
+                { src: 'js/dazzleSketch.js', async: true }
+              ]
+            });
+        </script>
+    </body>
+</html>
